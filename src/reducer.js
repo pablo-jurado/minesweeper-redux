@@ -35,15 +35,20 @@ const rootReducer = (state = appState, action) => {
   }
 
   if (action.type === RIGHT_CLICK) {
-    const x = action.payload.x;
-    const y = action.payload.y;
+    const flags = state.flagNum - 1;
 
-    const newBoard = state.board.slice();
-    newBoard[x][y].flag = !newBoard[x][y].flag;
-    return {
-      ...state,
-      board: newBoard
-    };
+    if (flags >= 0) {
+      const x = action.payload.x;
+      const y = action.payload.y;
+
+      const newBoard = state.board.slice();
+      newBoard[x][y].flag = !newBoard[x][y].flag;
+      return {
+        ...state,
+        board: newBoard,
+        flagNum: flags
+      };
+    }
   }
 
   return state;

@@ -85,7 +85,7 @@ body {
 }
 
 .square.mine {
-  border-color: red;
+  border-color: grey;
   background: red;
 }
 
