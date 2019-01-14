@@ -28,7 +28,7 @@ const rootReducer = (state = appState, action) => {
     let newBoard = state.board.slice();
     newBoard[x][y].isClicked = true;
     if (!newBoard[x][y].minesNum) {
-      newBoard = showEmptySquares(x, y, state.colIndx, state.rowIndx, newBoard);
+      newBoard = showEmptySquares(x, y, newBoard);
     }
     return {
       ...state,

@@ -13,12 +13,16 @@ export function createEmptyBoard(rowIndx, colIndx, minesNum) {
     }
     board.push(col);
   }
-  const boardWithMines = addMines(minesNum, board, rowIndx, colIndx);
-  const boardWithNumbers = addMinesNumber(boardWithMines, rowIndx, colIndx);
+  const boardWithMines = addMines(minesNum, board);
+  const boardWithNumbers = addMinesNumber(boardWithMines);
   return boardWithNumbers;
 }
 
-export function addMines(minesNum, board, rowIndx, colIndx) {
+function addMines(minesNum, oldBoard) {
+  const board = oldBoard.slice();
+  const rowIndx = board.length;
+  const colIndx = board[0].length;
+
   for (var i = 0; i < minesNum; i++) {
     const xRan = getRandom(0, rowIndx);
     const yRan = getRandom(0, colIndx);
@@ -33,16 +37,24 @@ export function addMines(minesNum, board, rowIndx, colIndx) {
   return board;
 }
 
-function addMinesNumber(board, rowIndx, colIndx) {
+function addMinesNumber(oldBoard) {
+  const board = oldBoard.slice();
+  const rowIndx = board.length;
+  const colIndx = board[0].length;
+
   for (let i = 0; i < rowIndx; i++) {
     for (let j = 0; j < colIndx; j++) {
-      board[i][j].minesNum = getMineNumber(i, j, colIndx, rowIndx, board);
+      board[i][j].minesNum = getMineNumber(i, j, board);
     }
   }
   return board;
 }
 
-function getMineNumber(xNum, yNum, colIndx, rowIndx, board) {
+function getMineNumber(xNum, yNum, oldBoard) {
+  const board = oldBoard.slice();
+  const rowIndx = board.length;
+  const colIndx = board[0].length;
+
   let values = [];
 
   for (var x = xNum - 1; x < xNum + 2; x++) {
@@ -67,7 +79,11 @@ function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-export function showEmptySquares(xNum, yNum, colIndx, rowIndx, board) {
+export function showEmptySquares(xNum, yNum, oldBoard) {
+  const board = oldBoard.slice();
+  const rowIndx = board.length;
+  const colIndx = board[0].length;
+
   for (var x = xNum - 1; x < xNum + 2; x++) {
     for (var y = yNum - 1; y < yNum + 2; y++) {
       if (x >= 0 && x < colIndx && y >= 0 && y < rowIndx) {
