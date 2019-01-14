@@ -66,3 +66,14 @@ function getMineNumber(xNum, yNum, colIndx, rowIndx, board) {
 function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
+
+export function showEmptySquares(xNum, yNum, colIndx, rowIndx, board) {
+  for (var x = xNum - 1; x < xNum + 2; x++) {
+    for (var y = yNum - 1; y < yNum + 2; y++) {
+      if (x >= 0 && x < colIndx && y >= 0 && y < rowIndx) {
+        if (!board[x][y].minesNum) board[x][y].isClicked = true;
+      }
+    }
+  }
+  return board;
+}

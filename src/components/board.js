@@ -3,14 +3,14 @@ import React from "react";
 const Board = ({ state, rightClick, leftClick }) => {
   const handleLeftClick = (e) => {
     const position = e.target.dataset;
-    if (position) {
+    if (position.row) {
       leftClick(position.row, position.col);
     }
   };
   const handleRightClick = (e) => {
     e.preventDefault();
     const position = e.target.dataset;
-    if (position) {
+    if (position.row) {
       rightClick(position.row, position.col);
     }
   };

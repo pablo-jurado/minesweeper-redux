@@ -1,4 +1,4 @@
-import { createEmptyBoard } from "./helpers";
+import { createEmptyBoard, showEmptySquares } from "./helpers";
 import { RIGHT_CLICK, LEFT_CLICK } from "./actions";
 
 const appState = {
@@ -13,7 +13,7 @@ const appState = {
   timer: null
 };
 
-// boardItems: { isClicked: false, mine: false, flag: false, showMine: false }
+// boardItems: { isClicked: false, mine: false, flag: false, showMine: false, minesNum }
 
 appState.board = createEmptyBoard(
   appState.rowIndx,
@@ -26,8 +26,11 @@ const rootReducer = (state = appState, action) => {
     const x = action.payload.x;
     const y = action.payload.y;
 
-    const newBoard = state.board.slice();
+    let newBoard = state.board.slice();
     newBoard[x][y].isClicked = true;
+    if (!newBoard[x][y].minesNum) {
+      newBoard = showEmptySquares(x, y, state.colIndx, state.rowIndx, newBoard);
+    }
     return {
       ...state,
       board: newBoard
