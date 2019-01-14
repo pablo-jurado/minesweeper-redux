@@ -1,10 +1,18 @@
 import React from "react";
 
-const Board = ({ state }) => (
-  <div className="board">
-    <Row board={state.board} />
-  </div>
-);
+const Board = ({ state, rightClick }) => {
+  const handleClick = (e) => {
+    const position = e.target.dataset;
+    if (position) {
+      rightClick(position.row, position.col);
+    }
+  };
+  return (
+    <div className="board" onClick={handleClick}>
+      <Row board={state.board} />
+    </div>
+  );
+};
 
 function Row({ board }) {
   let rowCollection = board.map((item, i) => {
@@ -31,22 +39,8 @@ function Squares({ squares, rowIndex }) {
       if (!square.mine) classVal = "square off";
     }
 
-    const rightClick = () => {
-      console.log("todo");
-    };
-
-    const leftClick = () => {
-      console.log("todo");
-    };
     return (
-      <div
-        onContextMenu={rightClick}
-        onClick={leftClick}
-        data-row={rowIndex}
-        data-col={i}
-        key={i}
-        className={classVal}
-      >
+      <div data-row={rowIndex} data-col={i} key={i} className={classVal}>
         {minesNumber}
       </div>
     );

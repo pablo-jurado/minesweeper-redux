@@ -9,3 +9,22 @@ export function createEmptyBoard(rowIndx, colIndx) {
   }
   return board;
 }
+
+export function addMines(minesNum, board, rowIndx, colIndx) {
+  for (var i = 0; i < minesNum; i++) {
+    const xRan = getRandom(0, rowIndx);
+    const yRan = getRandom(0, colIndx);
+    // already a mine in this position
+    if (board[xRan][yRan].mine === true) {
+      // try again
+      i--;
+    } else {
+      board[xRan][yRan].mine = true;
+    }
+  }
+  return board;
+}
+
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
