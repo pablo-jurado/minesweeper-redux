@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Board from "./components/board";
-import { rightClick } from "./actions";
+import { rightClick, leftClick } from "./actions";
 import "./App.css";
 
 class App extends Component {
@@ -9,7 +9,11 @@ class App extends Component {
     console.log(this.props.state);
     return (
       <div className="app">
-        <Board state={this.props.state} rightClick={this.props.rightClick} />
+        <Board
+          state={this.props.state}
+          rightClick={this.props.rightClick}
+          leftClick={this.props.leftClick}
+        />
       </div>
     );
   }
@@ -20,6 +24,9 @@ const mapStateToProps = (state) => ({ state });
 const mapDispatchToProps = (dispatch) => ({
   rightClick: (x, y) => {
     dispatch(rightClick(x, y));
+  },
+  leftClick: (x, y) => {
+    dispatch(leftClick(x, y));
   }
 });
 

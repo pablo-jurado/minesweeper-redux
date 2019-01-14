@@ -1,5 +1,5 @@
 import { createEmptyBoard, addMines } from "./helpers";
-import { RIGHT_CLICK } from "./actions";
+import { RIGHT_CLICK, LEFT_CLICK } from "./actions";
 
 const appState = {
   board: null,
@@ -25,17 +25,30 @@ appState.board = addMines(
 );
 
 const rootReducer = (state = appState, action) => {
-  if (action.type === RIGHT_CLICK) {
+  if (action.type === LEFT_CLICK) {
     const x = action.payload.x;
     const y = action.payload.y;
 
-    const newBoard = state.board.slice(0);
+    const newBoard = state.board.slice();
     newBoard[x][y].isClicked = true;
     return {
       ...state,
       board: newBoard
     };
   }
+
+  if (action.type === RIGHT_CLICK) {
+    const x = action.payload.x;
+    const y = action.payload.y;
+
+    const newBoard = state.board.slice();
+    newBoard[x][y].flag = !newBoard[x][y].flag;
+    return {
+      ...state,
+      board: newBoard
+    };
+  }
+
   return state;
 };
 

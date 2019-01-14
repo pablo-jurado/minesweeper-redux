@@ -1,14 +1,26 @@
 import React from "react";
 
-const Board = ({ state, rightClick }) => {
-  const handleClick = (e) => {
+const Board = ({ state, rightClick, leftClick }) => {
+  const handleLeftClick = (e) => {
+    const position = e.target.dataset;
+    if (position) {
+      leftClick(position.row, position.col);
+    }
+  };
+  const handleRightClick = (e) => {
+    e.preventDefault();
     const position = e.target.dataset;
     if (position) {
       rightClick(position.row, position.col);
     }
   };
+
   return (
-    <div className="board" onClick={handleClick}>
+    <div
+      className="board"
+      onClick={handleLeftClick}
+      onContextMenu={handleRightClick}
+    >
       <Row board={state.board} />
     </div>
   );
