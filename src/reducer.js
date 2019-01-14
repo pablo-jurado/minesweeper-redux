@@ -23,8 +23,7 @@ appState.board = createEmptyBoard(
 
 const rootReducer = (state = appState, action) => {
   if (action.type === LEFT_CLICK) {
-    const x = action.payload.x;
-    const y = action.payload.y;
+    const { x, y } = action.payload;
 
     let newBoard = state.board.slice();
     newBoard[x][y].isClicked = true;
@@ -38,20 +37,26 @@ const rootReducer = (state = appState, action) => {
   }
 
   if (action.type === RIGHT_CLICK) {
-    const flags = state.flagNum - 1;
+    const { x, y } = action.payload;
+    const flagValue = state.board[x][y].flag;
+    const newBoard = state.board.slice();
 
-    if (flags >= 0) {
-      const x = action.payload.x;
-      const y = action.payload.y;
-
-      const newBoard = state.board.slice();
-      newBoard[x][y].flag = !newBoard[x][y].flag;
-      return {
-        ...state,
-        board: newBoard,
-        flagNum: flags
-      };
+    if (!flagValue) {
+      if (state.flagNum - 1 >= 0) {
+        state.flagNum--;
+        newBoard[x][y].flag = true;
+      }
+    } else {
+      if (state.flagNum + 1 <= state.minesNum) {
+        state.flagNum++;
+        newBoard[x][y].flag = false;
+      }
     }
+
+    return {
+      ...state,
+      board: newBoard
+    };
   }
 
   return state;
