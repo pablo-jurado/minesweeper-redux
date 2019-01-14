@@ -1,4 +1,4 @@
-import { createEmptyBoard, addMines } from "./helpers";
+import { createEmptyBoard } from "./helpers";
 import { RIGHT_CLICK, LEFT_CLICK } from "./actions";
 
 const appState = {
@@ -15,13 +15,10 @@ const appState = {
 
 // boardItems: { isClicked: false, mine: false, flag: false, showMine: false }
 
-appState.board = createEmptyBoard(appState.rowIndx, appState.colIndx);
-
-appState.board = addMines(
-  appState.minesNum,
-  appState.board,
+appState.board = createEmptyBoard(
   appState.rowIndx,
-  appState.colIndx
+  appState.colIndx,
+  appState.minesNum
 );
 
 const rootReducer = (state = appState, action) => {

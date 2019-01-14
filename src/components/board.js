@@ -43,12 +43,16 @@ function Squares({ squares, rowIndex }) {
     let minesNumber = null;
 
     if (square.flag) classVal = "square flag";
-    if (square.showMine) classVal = "square mine-off";
+
+    // TODO
+    // if (square.showMine) classVal = "square mine-off";
 
     if (square.isClicked) {
-      // TODO: check for winner
       if (square.mine) classVal = "square mine";
-      if (!square.mine) classVal = "square off";
+      if (!square.mine) {
+        minesNumber = square.minesNum;
+        classVal = "square off";
+      }
     }
 
     return (

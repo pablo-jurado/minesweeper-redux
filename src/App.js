@@ -6,7 +6,6 @@ import "./App.css";
 
 class App extends Component {
   render() {
-    console.log(this.props.state);
     return (
       <div className="app">
         <Board
